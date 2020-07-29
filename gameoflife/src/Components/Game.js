@@ -4,9 +4,10 @@ import { Button } from "@material-ui/core";
 import "../index.css";
 
 import { Link } from "react-router-dom";
+import Inputs from "./Inputs.js";
 
-const numRows = 30;
-const numCols = 30;
+// const numRows = 30;
+// const numCols = 30;
 
 const operations = [
   [0, 1],
@@ -19,7 +20,7 @@ const operations = [
   [-1, 0],
 ];
 
-const generateEmptyGrid = () => {
+const generateEmptyGrid = (numCols, numRows) => {
   const rows = [];
   for (let i = 0; i < numRows; i++) {
     rows.push(Array.from(Array(numCols), () => 0));
@@ -28,11 +29,13 @@ const generateEmptyGrid = () => {
 };
 
 export default function Game() {
+  const [size, setSize] = useState([15, 15]);
   const [grid, setGrid] = useState(() => {
-    return generateEmptyGrid();
+    return generateEmptyGrid(size[0], size[1]);
   });
 
   const [running, setRunning] = useState(false);
+  let [generations, setGenerations] = useState(0);
 
   const runningRef = useRef(running);
   runningRef.current = running;
@@ -43,13 +46,14 @@ export default function Game() {
     }
     setGrid((g) => {
       return produce(g, (gridCopy) => {
-        for (let i = 0; i < numRows; i++) {
-          for (let k = 0; k < numCols; k++) {
+        setGenerations(generations++);
+        for (let i = 0; i < size[0]; i++) {
+          for (let k = 0; k < size[1]; k++) {
             let neighbors = 0;
             operations.forEach(([x, y]) => {
               const newI = i + x;
               const newK = k + y;
-              if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) {
+              if (newI >= 0 && newI < size[0] && newK >= 0 && newK < size[1]) {
                 neighbors += g[newI][newK];
               }
             });
@@ -64,17 +68,25 @@ export default function Game() {
       });
     });
     // simulate
-    setTimeout(runSimulation, 250);
-  }, []);
+    setTimeout(runSimulation, 50);
+  }, [size, generations]);
 
   return (
     <>
       <div class="game-div">
+        <Inputs
+          size={size}
+          setSize={setSize}
+          running={running}
+          generateEmptyGrid={generateEmptyGrid}
+          setGrid={setGrid}
+          generations={generations}
+        />
         <div
           className="grid-div"
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${numCols}, 20px)`,
+            gridTemplateColumns: `repeat(${size[1]}, 20px)`,
           }}
         >
           {grid.map((rows, i) =>
@@ -119,9 +131,9 @@ export default function Game() {
             color="primary"
             onClick={() => {
               const rows = [];
-              for (let i = 0; i < numRows; i++) {
+              for (let i = 0; i < size[0]; i++) {
                 rows.push(
-                  Array.from(Array(numCols), () =>
+                  Array.from(Array(size[1]), () =>
                     Math.random() > 0.7 ? 1 : 0
                   )
                 );
@@ -136,7 +148,8 @@ export default function Game() {
             variant="contained"
             color="secondary"
             onClick={() => {
-              setGrid(generateEmptyGrid());
+              setGrid(generateEmptyGrid(size[0], size[1]));
+              setGenerations(0);
             }}
           >
             Clear
@@ -146,5 +159,3 @@ export default function Game() {
     </>
   );
 }
-
-// const generateEmptyGrid = (numCols, numRows)

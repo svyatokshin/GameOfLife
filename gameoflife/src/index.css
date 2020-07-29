@@ -32,3 +32,17 @@ code {
 .actual-grid {
   margin: 0 auto;
 }
+
+.inputs form {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.inputs form p {
+  margin: 1%;
+}
+
+.inputs {
+  text-align: center;
+}
