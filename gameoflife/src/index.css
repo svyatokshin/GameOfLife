@@ -2,9 +2,12 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif, "Ranchers", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./images/retroimage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 code {
@@ -13,10 +16,14 @@ code {
 }
 
 .button-group {
-  width: 25%;
-  margin: 1% auto;
+  width: 75%;
+  margin: 3% auto;
   display: flex;
   justify-content: space-between;
+}
+.button-group Button {
+  height: 3rem;
+  margin-bottom: 2%;
 }
 
 .grid-div {
@@ -25,8 +32,10 @@ code {
 }
 
 .game-div {
-  width: 80%;
+  width: 50%;
   margin: 1% auto;
+  background: white;
+  border-radius: 10px;
 }
 
 .actual-grid {
@@ -45,4 +54,15 @@ code {
 
 .inputs {
   text-align: center;
+}
+
+.game-div h1 {
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Ranchers", cursive;
+}
+
+.game-div h4 {
+  text-align: center;
+  font-family: "Ranchers", cursive;
 }

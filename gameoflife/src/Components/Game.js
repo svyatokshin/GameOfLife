@@ -46,7 +46,6 @@ export default function Game() {
     }
     setGrid((g) => {
       return produce(g, (gridCopy) => {
-        setGenerations(generations++);
         for (let i = 0; i < size[0]; i++) {
           for (let k = 0; k < size[1]; k++) {
             let neighbors = 0;
@@ -67,13 +66,41 @@ export default function Game() {
         }
       });
     });
+    setGenerations(++generations);
     // simulate
-    setTimeout(runSimulation, 50);
+    setTimeout(runSimulation, 100);
   }, [size, generations]);
+
+  const steps = () => {
+    setGenerations(++generations);
+    setGrid((g) => {
+      return produce(g, (gridCopy) => {
+        for (let i = 0; i < size[0]; i++) {
+          for (let k = 0; k < size[1]; k++) {
+            let neighbors = 0;
+            operations.forEach(([x, y]) => {
+              const newI = i + x;
+              const newK = k + y;
+              if (newI >= 0 && newI < size[0] && newK >= 0 && newK < size[1]) {
+                neighbors += g[newI][newK];
+              }
+            });
+            if (neighbors < 2 || neighbors > 3) {
+              gridCopy[i][k] = 0;
+            } else if (g[i][k] === 0 && neighbors === 3) {
+              gridCopy[i][k] = 1;
+            }
+          }
+        }
+      });
+    });
+  };
 
   return (
     <>
       <div class="game-div">
+        <h1>Welcome to Conway's Game of Life!</h1>
+        <h4>Coded by Svyat Okshin</h4>
         <Inputs
           size={size}
           setSize={setSize}
@@ -114,7 +141,7 @@ export default function Game() {
         <div class="button-group">
           <Button
             variant="contained"
-            color="primary"
+            color={running ? "secondary" : "primary"}
             onClick={() => {
               setRunning(!running);
               if (!running) {
@@ -125,7 +152,9 @@ export default function Game() {
           >
             {running ? "stop" : "start"}
           </Button>
-
+          <Button variant="contained" color="primary" onClick={steps}>
+            One Gen Step
+          </Button>
           <Button
             variant="outlined"
             color="primary"
