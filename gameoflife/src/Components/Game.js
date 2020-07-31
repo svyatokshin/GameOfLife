@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Inputs from "./Inputs.js";
 
 // const numRows = 30;
-// const numCols = 30;
+// const numCols =? 30;
 
 const operations = [
   [0, 1],
@@ -29,7 +29,7 @@ const generateEmptyGrid = (numCols, numRows) => {
 };
 
 export default function Game() {
-  const [size, setSize] = useState([15, 15]);
+  const [size, setSize] = useState([20, 20]);
   const [grid, setGrid] = useState(() => {
     return generateEmptyGrid(size[0], size[1]);
   });
@@ -130,8 +130,8 @@ export default function Game() {
                 style={{
                   width: 20,
                   height: 20,
-                  backgroundColor: grid[i][k] ? "black" : undefined,
-                  border: "solid 1px black",
+                  backgroundColor: grid[i][k] ? "#0050D5" : undefined,
+                  border: "solid 0.5px black",
                   margin: "0 auto",
                 }}
               />
