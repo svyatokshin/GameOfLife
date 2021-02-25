@@ -6,6 +6,10 @@ import "../index.css";
 import { Link } from "react-router-dom";
 import Inputs from "./Inputs.js";
 
+const mystyle = {
+  color: "white",
+  "text-decoration": "none"
+}
 // const numRows = 30;
 // const numCols =? 30;
 
@@ -99,6 +103,15 @@ export default function Game() {
   return (
     <>
       <div class="game-div">
+        <Button
+        variant="contained"
+        color="secondary"
+        style={{"margin": "1% 1%"}}>
+          <Link className="homebtn" to="/" style={mystyle}>
+            Return Home
+          </Link>
+          
+        </Button>
         <h1>Welcome to Conway's Game of Life!</h1>
         <h4>Coded by Svyat Okshin</h4>
         <Inputs

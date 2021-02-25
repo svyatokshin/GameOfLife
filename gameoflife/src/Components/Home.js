@@ -3,6 +3,11 @@ import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import "../index.css";
 
+const mystyle = {
+  color: "white",
+  "text-decoration": "none"
+}
+
 const Home = () => {
   return (
     <div className="main-container">
@@ -56,26 +61,26 @@ const Home = () => {
       </section>
       <section className="rules-section">
         <h2>Rules of the Game</h2>
-        <ol>
-          <li>
-            Any live cell with fewer than 2 live neighbors dies, as if by
+        
+          <p>
+            1. Any live cell with fewer than 2 live neighbors dies, as if by
             underpopulation.
-          </li>
-          <li>
-            Any live cell with 2 or 3 live neighbors lives on to the next
+          </p>
+          <p>
+            2. Any live cell with 2 or 3 live neighbors lives on to the next
             generation.
-          </li>
-          <li>
-            Any live cell with more than 3 live neighbors dies, as if by
+          </p>
+          <p>
+            3. Any live cell with more than 3 live neighbors dies, as if by
             overpopulation.
-          </li>
-          <li>
-            Any dead cell with exactly 3 live neighbors becomes a live cell, as
+          </p>
+          <p>
+            4. Any dead cell with exactly 3 live neighbors becomes a live cell, as
             if by reproduction.
-          </li>
-        </ol>
-        <Button variant="contained" color="secondary">
-          <Link className="gamebtn" to="/game">
+          </p>
+        
+        <Button variant="contained" color="secondary" >
+          <Link className="gamebtn" style={mystyle} to="/game">
             Play Game
           </Link>
         </Button>
